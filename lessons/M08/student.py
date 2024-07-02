@@ -10,3 +10,10 @@ class Student:
     def enroll_in_course(self, course_name): 
         self.courses.append(course_name)
         self.num_courses += 1 # increment the number of courses
+
+    def unenroll_in_course(self, course_name):
+        try:
+            self.courses.remove(course_name)
+            self.num_courses -= 1
+        except:
+            raise Exception(course_name, " not in Students course list")
