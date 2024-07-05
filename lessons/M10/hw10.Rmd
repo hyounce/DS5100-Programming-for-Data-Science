@@ -15,9 +15,9 @@ output: pdf_document
 
 # Student Info
 
-    Name:
-    Ned ID:
-    URL of this file on GitHub:
+    Name: Hilde Younce
+    Ned ID: ksg8xy
+    URL of this file on GitHub: https://github.com/hyounce/DS5100-ksg8xy/blob/main/lessons/M10/hw10.Rmd
 
 # Instructions
 
@@ -99,7 +99,16 @@ for each bracket. You should end up with columns for the earnings in
 dollars for each bracket, as well as the payout in dollars.
 
 ```{r}
-# CODE HERE
+cut <- c(0.4, 0.3, 0.2, 0.1)
+payout_pct <- c(0.07, 0.10, 0.13, 0.16)
+cut_sum <- c(0.4, 0.7, 0.9, 1.0)
+quota <- 225000
+amt <- cut * quota
+payout = amt * payout_pct
+payout_sum <- c(payout[1], payout[1]+payout[2], payout[1]+payout[2]+payout[3], payout[1]+payout[2]+payout[3]+payout[4])
+amt_sum <- c(amt[1], amt[1]+amt[2], amt[1]+amt[2]+amt[3], amt[1]+amt[2]+amt[3]+amt[4])
+sales = data.frame(cut, payout_pct, cut_sum, amt, payout, payout_sum, amt_sum)
+print(sales)
 ```
 
 # Task 2
@@ -120,7 +129,23 @@ dataframe do the work.** In your function, match the amount earned to
 the appropriate row in your first dataframe to get the answer.
 
 ```{r}
-# CODE HERE
+amount_earned <- function(frac){
+  if (frac <= 0.4) row = 1
+  else if (frac <= 0.7) row = 2
+  else if (frac <= 0.9) row = 3
+  else row = 4
+  
+  if (row > 1){
+    a = payout_sum[row-1]
+    b = quota * (frac - cut_sum[row-1]) * payout_pct[row]
+  }
+  else{
+    a = quota * frac * payout_pct[row]
+    b = 0
+  }
+  return (a + b)
+}
+amount_earned(0.5)
 ```
 
 # Task 3
@@ -136,7 +161,10 @@ dataframe. That is, create a dataframe with columns for percent of quota
 earned and payout for that amount.
 
 ```{r}
-# CODE HERE
+percent <- seq(0, 1, 0.1)
+payouts <- sapply(percent, amount_earned)
+data = data.frame(percent, payouts)
+print(data)
 ```
 
 # Task 4
@@ -149,9 +177,12 @@ Display the graph using both points and lines.
 
 Hint: for both axes, use the cumulative sums, which you should have
 defined above.
+```{r}
+plot(amt_sum, payout_sum)
+```
 
 ```{r}
-# CODE HERE
+plot(amt_sum, payout_sum, type='l')
 ```
 # Task 5 
 
@@ -162,5 +193,8 @@ Using the second dataframe, plot the dollar amount for each increment (x-axis) v
 Again, display the graph using both points and lines.
 
 ```{r}
-# CODE HERE
+plot(percent, payout)
+```
+```{r}
+plot(amt_sum, payout_sum, type='l')
 ```
