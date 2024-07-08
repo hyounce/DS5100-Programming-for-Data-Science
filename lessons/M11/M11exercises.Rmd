@@ -148,3 +148,8 @@ scores %>%
   arrange(desc(math_score_centered_by_sex))
 ```
 
+## Exercise 11.27:
+```{r}
+scores %>% 
+  group_by(teacher)
+```
