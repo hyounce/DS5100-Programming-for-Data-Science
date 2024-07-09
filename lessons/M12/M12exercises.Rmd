@@ -1,0 +1,19 @@
+## M12 Exercises - Hilde Younce
+
+### Exercise 12.1:
+```{r}
+library(vctrs)
+library(tidyverse)
+```
+```{r}
+mpg %>%  ggplot()
+```
+### Exercise 12.2:
+```{r}
+mpg %>% ggplot(aes(x = cyl, y = hwy)) + 
+  geom_point()
+```
+### Exercise 12.3:
+```{r}
+
+```
