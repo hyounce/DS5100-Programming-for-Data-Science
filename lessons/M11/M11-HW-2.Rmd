@@ -17,7 +17,7 @@ output: pdf_document
 
     Name:  Hilde Younce
     Net ID: ksg8xy
-    File GitHub URL: 
+    File GitHub URL: https://github.com/hyounce/DS5100-ksg8xy/blob/main/lessons/M11/M11-HW-2.Rmd 
 
 # Instructions
 
@@ -66,7 +66,8 @@ value directly.
 Get the dataset.
 
 ```{r}
-# CODE HERE
+abalone = read.csv("https://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data")
+abalone
 ```
 
 ## Task 1
@@ -76,7 +77,7 @@ Get the dataset.
 Print the number of rows in the dataset.
 
 ```{r}
-# CODE HERE
+nrow(abalone)
 ```
 
 ## Task 2
@@ -87,7 +88,9 @@ The rightmost column is the number of rings. Print the maximum number of
 rings
 
 ```{r}
-# CODE HERE
+max_rings <- abalone %>% 
+  arrange(desc(X15))
+print(max_rings[1,9])
 ```
 
 ## Task 3
@@ -101,7 +104,9 @@ Apply the `filter()` function from tidyverse to select only rows where
 gender is infant, and print the number of records.
 
 ```{r}
-# CODE HERE
+abalone %>% 
+  filter(M == "I") %>% 
+  nrow()
 ```
 
 ## Task 4
@@ -112,7 +117,9 @@ Apply the `filter()` function from `tidyverse` to select only rows where
 gender is infant or male, and print the number of records.
 
 ```{r}
-# CODE HERE
+abalone %>% 
+  filter(M == "I" | M == "M") %>% 
+  nrow()
 ```
 
 ## Task 5
@@ -125,7 +132,9 @@ of each gender are present.
 Print the result.
 
 ```{r}
-# CODE HERE
+abalone %>% 
+  select(M) %>% 
+  table()
 ```
 
 ## Task 6
@@ -140,7 +149,9 @@ Requirements: use the `%>%` operator to chain commands, and the
 `group_by()` and `summarize()` functions.
 
 ```{r}
-# CODE HERE
+abalone %>% 
+  group_by(M) %>% 
+  summarize(mean = mean(X0.455))
 ```
 
 # Task 7
@@ -153,5 +164,7 @@ males.
 Requirements: use the `%>%` operator to chain commands.
 
 ```{r}
-# CODE HERE
+abalone %>% 
+  filter(M == "M") %>% 
+  summarize(median = median(X0.455))
 ```
