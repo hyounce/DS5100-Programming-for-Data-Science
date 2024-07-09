@@ -1,0 +1,85 @@
+## M12 Exercises - Hilde Younce
+
+### Exercise 12.1:
+```{r}
+library(vctrs)
+library(tidyverse)
+```
+```{r}
+mpg %>%  ggplot()
+```
+### Exercise 12.2:
+```{r}
+mpg %>% ggplot(aes(x = cyl, y = hwy)) + 
+  geom_point()
+```
+### Exercise 12.3:
+```{r}
+mpg %>% ggplot(aes(x = class, y = drv)) + 
+  geom_point()
+```
+### Exercise 12.4:
+```{r}
+x <- seq(-6*pi, 6*pi, length.out=100)
+y <- sin(x) / x
+data <- data.frame(x = x, y = y)
+ggplot(data = data, mapping=aes(x=x, y=y)) +
+  geom_line()
+```
+### Exercise 12.5:
+```{r}
+cars %>% 
+  ggplot(mapping=aes(x = speed, y = dist)) +
+  geom_point()
+```
+
+### Exercise 12.6:
+```{r}
+cars %>% 
+  ggplot(mapping=aes(x = speed, y = dist)) +
+  geom_point(mapping = aes(color=dist > 80))
+```
+
+### Exercise 12.7:
+```{r}
+cars %>% 
+  ggplot(mapping=aes(x = speed, y = dist)) +
+  geom_point(mapping = aes(color=dist > 80)) + 
+  scale_color_manual(values=c("turquoise", "red"))
+```
+### Exercise 12.8:
+```{r}
+cars %>% 
+  ggplot(mapping=aes(x = speed, y = dist)) +
+  geom_point(mapping = aes(color=dist > 80)) + 
+  geom_smooth(method=lm)
+```
+### Exercise 12.9:
+```{r}
+cars %>% 
+  ggplot(mapping = aes(x = speed)) +
+  geom_histogram(bins = 10)
+```
+```{r}
+cars %>% 
+  ggplot(mapping = aes(x = dist)) +
+  geom_histogram(bins = 10)
+```
+
+### Exercise 12.10:
+```{r}
+mpg %>% ggplot(aes(x = hwy, y = cty))+
+  geom_point() + 
+  facet_grid(drv ~ cyl)
+```
+
+### Exercise 12.11:
+```{r}
+iris %>% 
+  ggplot(aes(x = Sepal.Length, y = Sepal.Width, color = Species, shape = Species)) +
+  geom_point() +
+  geom_density2d() +
+  ggtitle('IRIS') +
+  theme_light()
+```
+
